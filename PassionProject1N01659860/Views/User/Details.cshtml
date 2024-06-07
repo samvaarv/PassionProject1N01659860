@@ -1,0 +1,13 @@
+﻿﻿@model PassionProject1N01659860.Models.User
+@{
+    ViewBag.Title = "Details";
+}
+
+<a href="/User/List">Go back to list</a>
+<br />
+<a href="/User/Edit/@Model.UserID">Update</a>
+<br />
+<a style="color:#ab2020;" href="/User/DeleteConfirm/@Model.UserID">Delete</a>
+<h2>@Model.UserName</h2>
+<div><strong>Email:</strong> @Model.Email</div>
+<div><strong>Date Joined:</strong> @Model.DateJoined.ToString()</div>

@@ -1,0 +1,14 @@
+﻿﻿@model IEnumerable<PassionProject1N01659860.Models.User>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<a href="/User/New">New User</a>
+
+@foreach (var user in Model)
+{
+    <h2><a href="/User/Details/@user.UserID">@user.UserName</a></h2>
+    <div>@user.Email</div>
+}

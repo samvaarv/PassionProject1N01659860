@@ -1,0 +1,28 @@
+﻿﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add new User</h2>
+
+<form action="/User/Create" method="post">
+    <div class="form-group">
+        <label for="UserName">Username</label>
+        <input type="text" class="form-control" id="UserName" name="UserName" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+    </div>
+    <div class="form-group">
+        <label for="DateJoined">Date Joined</label>
+        <input type="date" class="form-control" id="DateJoined" name="DateJoined" required />
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" value="Add User" />
+    </div>
+</form>

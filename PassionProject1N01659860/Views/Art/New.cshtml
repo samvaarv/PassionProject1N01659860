@@ -1,0 +1,44 @@
+﻿﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add new Art</h2>
+
+<form action="/Art/Create" method="post">
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" required />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Artist">Artist</label>
+        <input type="text" class="form-control" id="Artist" name="Artist" required />
+    </div>
+    <div class="form-group">
+        <label for="Medium">Medium</label>
+        <input type="text" class="form-control" id="Medium" name="Medium" required />
+    </div>
+    <div class="form-group">
+        <label for="Location">Location</label>
+        <input type="text" class="form-control" id="Location" name="Location" required />
+    </div>
+    <div class="form-group">
+        <label for="ImageURL">Image URL</label>
+        <input type="url" class="form-control" id="ImageURL" name="ImageURL" required />
+    </div>
+    <div class="form-group">
+        <label for="YearInstalled">Year Installed</label>
+        <input type="date" class="form-control" id="YearInstalled" name="YearInstalled" required />
+    </div>
+    <div class="form-group">
+        <label for="ImageOrientation">Image Orientation</label>
+        <input type="text" class="form-control" id="ImageOrientation" name="ImageOrientation" required />
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" value="Add Art" />
+    </div>
+</form>

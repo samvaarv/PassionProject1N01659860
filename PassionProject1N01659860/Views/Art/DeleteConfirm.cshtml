@@ -1,0 +1,18 @@
+﻿﻿﻿@model PassionProject1N01659860.Models.Art
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this art?</h2>
+<a href="/Art/List">Cancel</a>
+<h2>@Model.Title</h2>
+<img src="@Model.ImageURL" alt="@Model.Title" />
+<div><strong>Artist:</strong> @Model.Artist</div>
+<div><strong>Description:</strong> @Model.Description</div>
+<div><strong>Medium:</strong> @Model.Medium</div>
+<div><strong>Location:</strong> @Model.Location</div>
+<div><strong>Year Installed:</strong> @Model.YearInstalled.ToString("yyyy")</div>
+<form action="/Art/Delete/@Model.ArtID" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>

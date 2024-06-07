@@ -1,0 +1,14 @@
+﻿﻿@model IEnumerable<PassionProject1N01659860.Models.Art>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<a href="/Art/New">New Art</a>
+
+@foreach (var art in Model)
+{
+    <h2><a href="/Art/Details/@art.ArtID">@art.Title</a></h2>
+    <div>@art.Artist</div>
+}

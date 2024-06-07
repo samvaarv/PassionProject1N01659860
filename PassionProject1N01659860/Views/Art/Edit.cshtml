@@ -1,0 +1,48 @@
+﻿﻿@model PassionProject1N01659860.Models.Art
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Art</h2>
+
+<form action="/Art/Update/@Model.ArtID" method="POST">
+    <div style="display:none;">
+        <input type="text" name="ArtID" value="@Model.ArtID" />
+    </div>
+    <div>
+        <label>Art Title:</label>
+        <input type="text" name="Title" value="@Model.Title" />
+    </div>
+    <div>
+        <label>Description:</label>
+        <textarea name="Description">@Model.Description</textarea>
+    </div>
+    <div>
+        <label>Artist Name:</label>
+        <input type="text" name="Artist" value="@Model.Artist" />
+    </div>
+    <div>
+        <label>Medium:</label>
+        <input type="text" name="Medium" value="@Model.Medium" />
+    </div>
+    <div>
+        <label>Location:</label>
+        <input type="text" name="Location" value="@Model.Location" />
+    </div>
+    <div>
+        <label>Image URL:</label>
+        <input type="text" name="ImageURL" value="@Model.ImageURL" />
+    </div>
+    <div>
+        <label>Year Installed:</label>
+        <input type="date" name="YearInstalled" value="@Model.YearInstalled.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <label>Image Orientation:</label>
+        <input type="text" name="ImageOrientation" value="@Model.ImageOrientation" />
+    </div>
+    <div>
+        <input type="submit" value="Update Art" />
+    </div>
+</form>
