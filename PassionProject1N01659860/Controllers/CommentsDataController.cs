@@ -68,24 +68,46 @@ namespace PassionProject1N01659860.Controllers
             return Ok(CommentsDto);
         }
 
+        /// <summary>
+        /// Lists all comments for a specific user by their user ID.
+        /// </summary>
+        /// <param name="id">The primary key of the user whose comments are to be listed.</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: A list of comments made by the user with the specified ID, each represented as a CommentsDto.
+        /// or
+        /// HEADER: 404 (NOT FOUND) if no comments are found for the user.
+        /// </returns>
+        /// <example>
+        /// GET: api/CommentsData/ListCommentsForUser/5
+        /// </example>
         [HttpGet]
         [ResponseType(typeof(CommentsDto))]
         public IHttpActionResult ListCommentsForUser(int id)
         {
-            //SQL Equivalent:
-            //Select * from comments where comments.artid = {id}
+            // Retrieves a list of comments from the database where the UserID matches the provided id.
+            // Equivalent SQL: SELECT * FROM comments WHERE comments.UserID = {id}
             List<Comments> Comments = db.Comments.Where(c => c.UserID == id).ToList();
+
+            // Initializes a new list to hold the CommentsDto objects.
             List<CommentsDto> CommentsDto = new List<CommentsDto>();
 
+            // Iterates through each comment in the list.
             Comments.ForEach(c => CommentsDto.Add(new CommentsDto()
             {
+                // Assigns the CommentID from the comment entity to the DTO.
                 CommentID = c.CommentID,
+                // Assigns the CommentText from the comment entity to the DTO.
                 CommentText = c.CommentText,
+                // Assigns the DateCommented from the comment entity to the DTO.
                 DateCommented = c.DateCommented,
+                // Assigns the UserID from the related User entity to the DTO.
                 UserID = c.User.UserID,
+                // Assigns the ArtID from the related Art entity to the DTO.
                 ArtID = c.Art.ArtID
             }));
 
+            // Returns an HTTP 200 OK response with the list of CommentsDto objects.
             return Ok(CommentsDto);
         }
 

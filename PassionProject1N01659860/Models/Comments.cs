@@ -38,6 +38,7 @@ namespace PassionProject1N01659860.Models
         public string CommentText { get; set; }
         public DateTime DateCommented { get; set; }
         public int ArtID { get; set; }
+        public string Title { get; set; }
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }

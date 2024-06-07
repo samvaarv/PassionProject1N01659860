@@ -19,7 +19,7 @@
     {
         <div style="border:1px solid #808080; padding: 1rem; border-radius:1rem; margin-top:1rem;">
             <p>@comment.CommentText</p>
-            <p><strong>Commented on:</strong> <a href="/Art/Details/@comment.ArtID">@comment.ArtID</a></p>
+            <p><strong>Commented on:</strong> <a href="/Art/Details/@comment.ArtID">@comment.Title</a></p>
             <p><strong>Date Commented:</strong> @comment.DateCommented.ToString("yyyy-MM-dd")</p>
             <a href="/Comments/DeleteConfirm/@comment.CommentID" style="color:#ab2020;">Delete</a>
         </div>
