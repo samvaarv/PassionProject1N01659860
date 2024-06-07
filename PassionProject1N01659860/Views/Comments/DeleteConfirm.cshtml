@@ -1,0 +1,15 @@
+﻿﻿﻿@model PassionProject1N01659860.Models.Comments
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this art?</h2>
+<a href="/Comments/List">Cancel</a>
+<div><strong>User ID:</strong> @Model.UserID</div>
+<div><strong>Art ID:</strong> @Model.ArtID</div>
+<div><strong>Comment:</strong> @Model.CommentText</div>
+<div><strong>Date Commented:</strong> @Model.DateCommented.ToString()</div>
+<form action="/Comments/Delete/@Model.CommentID" method="POST">
+    <input type="submit" value="Confirm Delete" />
+</form>

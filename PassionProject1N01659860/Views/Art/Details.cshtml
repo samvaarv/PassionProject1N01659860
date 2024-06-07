@@ -1,35 +1,37 @@
-﻿﻿@model PassionProject1N01659860.Models.Art
+﻿﻿@model PassionProject1N01659860.Models.ArtDetailsViewModel
 @{
     ViewBag.Title = "Details";
 }
 
 <a href="/Art/List">Go back to list</a>
 <br />
-<a href="/Art/Edit/@Model.ArtID">Update</a>
+<a href="/Art/Edit/@Model.Art.ArtID">Update</a>
 <br />
-<a style="color:#ab2020;" href="/Art/DeleteConfirm/@Model.ArtID">Delete</a>
-<h2>@Model.Title</h2>
-<img src="@Model.ImageURL" alt="@Model.Title" />
-<div><strong>Artist:</strong> @Model.Artist</div>
-<div><strong>Description:</strong> @Model.Description</div>
-<div><strong>Medium:</strong> @Model.Medium</div>
-<div><strong>Location:</strong> @Model.Location</div>
-<div><strong>Year Installed:</strong> @Model.YearInstalled.ToString("yyyy")</div>
+<a style="color:#ab2020;" href="/Art/DeleteConfirm/@Model.Art.ArtID">Delete</a>
+<h2>@Model.Art.Title</h2>
+<img src="@Model.Art.ImageURL" alt="@Model.Art.Title" />
+<div><strong>Artist:</strong> @Model.Art.Artist</div>
+<div><strong>Description:</strong> @Model.Art.Description</div>
+<div><strong>Medium:</strong> @Model.Art.Medium</div>
+<div><strong>Location:</strong> @Model.Art.Location</div>
+<div><strong>Year Installed:</strong> @Model.Art.YearInstalled.ToString("yyyy")</div>
 
 <h3>Comments</h3>
 @if (Model.Comments != null && Model.Comments.Any())
 {
-    <ul>
-        @foreach (var comment in Model.Comments)
-        {
-            <li>
-                <strong>@comment.User.UserName (@comment.User.Email)</strong> on @comment.DateCommented.ToString("yyyy-MM-dd")
-                <div>@comment.CommentText</div>
-            </li>
-        }
-    </ul>
+    foreach (var comment in Model.Comments)
+    {
+        <div style="border:1px solid #808080; padding: 1rem; border-radius:1rem; margin-top:1rem;">
+            <p>@comment.CommentText</p>  
+            <p><strong>Commented by:</strong> <a href="/User/Details/@comment.UserID">@comment.UserName</a></p>
+            <small>@comment.Email</small>
+            <p><strong>Date Commented:</strong> @comment.DateCommented.ToString("yyyy-MM-dd")</p>
+            <a href="/Comments/DeleteConfirm/@comment.CommentID" style="color:#ab2020;">Delete</a>
+        </div>
+        <hr />
+    }
 }
 else
 {
-    <p>No comments available for this art.</p>
+    <p>No comments yet.</p>
 }

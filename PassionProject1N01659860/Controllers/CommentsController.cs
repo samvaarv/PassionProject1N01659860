@@ -1,4 +1,5 @@
-﻿using PassionProject1N01659860.Models;
+﻿using PassionProject1N01659860.Migrations;
+using PassionProject1N01659860.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,55 +11,41 @@ using System.Web.Script.Serialization;
 
 namespace PassionProject1N01659860.Controllers
 {
-    public class ArtController : Controller
+    public class CommentsController : Controller
     {
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
-        static ArtController()
+        static CommentsController()
         {
             client = new HttpClient();
             client.BaseAddress = new Uri("https://localhost:44350/api/");
         }
 
-        // GET: Art/List
+        // GET: Comments/List
         public ActionResult List()
         {
-            // OBJECTIVE: Communication with the art data api to retrieve a list of arts
-            //curl https://localhost:44350/api/artdata/listarts
-            string url = "artdata/listarts";
+            // OBJECTIVE: Communication with the art data api to retrieve a list of comments
+            //curl https://localhost:44350/api/commentsdata/listcomments
+            string url = "commentsdata/listcomments";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            IEnumerable<Art> arts = response.Content.ReadAsAsync<IEnumerable<Art>>().Result;
+            IEnumerable<Comments> comments = response.Content.ReadAsAsync<IEnumerable<Comments>>().Result;
 
-            return View(arts);
+            return View(comments);
         }
 
-        // GET: Art/Details/5
+        // GET: Comments/Details/5
         public ActionResult Details(int id)
         {
-            // OBJECTIVE: Communication with the art data api to retrieve a one art
-            //curl https://localhost:44350/api/artdata/findart/{id}
-
-            ArtDetailsViewModel ViewModel = new ArtDetailsViewModel();
-
-            string url = "artdata/findart/" + id;
+            // OBJECTIVE: Communication with the comments data api to retrieve a one comment
+            //curl https://localhost:44350/api/commentsdata/findcomments/{id}
+            string url = "commentsdata/findcomments/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Art SelectedArt = response.Content.ReadAsAsync<Art>().Result;
+            Comments SelectedComment = response.Content.ReadAsAsync<Comments>().Result;
 
-            ViewModel.Art = SelectedArt;
-
-            //showcase information about animals related to this species
-            //send a request to gather information about animals related to a particular species ID
-            url = "commentsdata/ListCommentsForArt/" + id;
-            response = client.GetAsync(url).Result;
-            IEnumerable<CommentsDto> RelatedComments = response.Content.ReadAsAsync<IEnumerable<CommentsDto>>().Result;
-
-            ViewModel.Comments = RelatedComments;
-
-
-            return View(ViewModel);
+            return View(SelectedComment);
         }
 
         public ActionResult Error()
@@ -72,13 +59,19 @@ namespace PassionProject1N01659860.Controllers
             return View();
         }
 
-        // POST: Art/Create
-        [HttpPost]
-        public ActionResult Create(Art art)
+        // GET: Comments/Create
+        public ActionResult Create()
         {
-            string url = "artdata/addart";
+            return View();
+        }
 
-            string jsonpayload = jss.Serialize(art);
+        // POST: Comments/Create
+        [HttpPost]
+        public ActionResult Create(Comments comments)
+        {
+            string url = "commentsdata/addcomments";
+
+            string jsonpayload = jss.Serialize(comments);
             Debug.WriteLine(jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
@@ -95,21 +88,21 @@ namespace PassionProject1N01659860.Controllers
             }
         }
 
-        // GET: Art/Edit/5
+        // GET: Comments/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "artdata/findart/" + id;
+            string url = "commentsdata/addcomments" + id;
             HttpResponseMessage responseMessage = client.GetAsync(url).Result;
-            Art SelectedArt = responseMessage.Content.ReadAsAsync<Art>().Result;
-            return View(SelectedArt);
+            Comments SelectedComment = responseMessage.Content.ReadAsAsync<Comments>().Result;
+            return View(SelectedComment);
         }
 
-        // POST: Art/Edit/5
+        // POST: Comments/Update/5
         [HttpPost]
-        public ActionResult Update(int id, Art art)
+        public ActionResult Update(int id, Comments comments)
         {
-            string url = "artdata/updateart/" + id;
-            string jsonpayload = jss.Serialize(art);
+            string url = "commentsdata/addcomments" + id;
+            string jsonpayload = jss.Serialize(comments);
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -124,20 +117,26 @@ namespace PassionProject1N01659860.Controllers
             }
         }
 
-        // GET: Art/Delete/5
+        // GET: Comments/DeleteConfirm/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "artdata/findart/" + id;
+            string url = "commentsdata/findcomment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            Art SelectedArt = response.Content.ReadAsAsync<Art>().Result;
-            return View(SelectedArt);
+            Comments comment = response.Content.ReadAsAsync<Comments>().Result;
+
+            if (comment == null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            return View(comment);
         }
 
-        // POST: Art/Delete/5
+        // POST: Comments/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            string url = "artdata/deleteart/" + id;
+            string url = "commentsdata/deletecomments/" + id;
             HttpContent content = new StringContent("");
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;

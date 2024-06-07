@@ -39,12 +39,26 @@ namespace PassionProject1N01659860.Controllers
         {
             // OBJECTIVE: Communication with the user data api to retrieve a one user
             //curl https://localhost:44350/api/userdata/finduser/{id}
+
+            ArtDetailsViewModel ViewModel = new ArtDetailsViewModel();
+
             string url = "userdata/finduser/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             User SelectedUser = response.Content.ReadAsAsync<User>().Result;
 
-            return View(SelectedUser);
+            ViewModel.User = SelectedUser;
+
+            //showcase information about animals related to this species
+            //send a request to gather information about animals related to a particular species ID
+            url = "commentsdata/ListCommentsForUser/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<CommentsDto> RelatedComments = response.Content.ReadAsAsync<IEnumerable<CommentsDto>>().Result;
+
+            ViewModel.Comments = RelatedComments;
+
+
+            return View(ViewModel);
         }
 
         public ActionResult Error()

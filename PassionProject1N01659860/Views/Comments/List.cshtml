@@ -1,0 +1,14 @@
+﻿﻿@model IEnumerable<PassionProject1N01659860.Models.Comments>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<a href="/Comments/New">New Comments</a>
+
+@foreach (var comment in Model)
+{
+    <h2><a href="/Comments/Details/@comment.CommentID">@comment.CommentText</a></h2>
+    <div>@comment.DateCommented</div>
+}

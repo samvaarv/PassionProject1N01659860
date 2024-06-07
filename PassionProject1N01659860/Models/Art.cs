@@ -26,8 +26,5 @@ namespace PassionProject1N01659860.Models
         public DateTime YearInstalled { get; set; }
 
         public string ImageOrientation { get; set; }
-
-        //an art can be have many comments
-        public ICollection<Comments> Comments { get; set; }
     }
 }

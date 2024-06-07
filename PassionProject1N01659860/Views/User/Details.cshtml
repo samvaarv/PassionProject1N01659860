@@ -1,13 +1,32 @@
-﻿﻿@model PassionProject1N01659860.Models.User
+﻿﻿@model PassionProject1N01659860.Models.ArtDetailsViewModel
 @{
     ViewBag.Title = "Details";
 }
 
 <a href="/User/List">Go back to list</a>
 <br />
-<a href="/User/Edit/@Model.UserID">Update</a>
+<a href="/User/Edit/@Model.User.UserID">Update</a>
 <br />
-<a style="color:#ab2020;" href="/User/DeleteConfirm/@Model.UserID">Delete</a>
-<h2>@Model.UserName</h2>
-<div><strong>Email:</strong> @Model.Email</div>
-<div><strong>Date Joined:</strong> @Model.DateJoined.ToString()</div>
+<a style="color:#ab2020;" href="/User/DeleteConfirm/@Model.User.UserID">Delete</a>
+<h2>@Model.User.UserName</h2>
+<div><strong>Email:</strong> @Model.User.Email</div>
+<div><strong>Date Joined:</strong> @Model.User.DateJoined.ToString()</div>
+
+<h3>Comments</h3>
+@if (Model.Comments != null && Model.Comments.Any())
+{
+    foreach (var comment in Model.Comments)
+    {
+        <div style="border:1px solid #808080; padding: 1rem; border-radius:1rem; margin-top:1rem;">
+            <p>@comment.CommentText</p>
+            <p><strong>Commented on:</strong> <a href="/Art/Details/@comment.ArtID">@comment.ArtID</a></p>
+            <p><strong>Date Commented:</strong> @comment.DateCommented.ToString("yyyy-MM-dd")</p>
+            <a href="/Comments/DeleteConfirm/@comment.CommentID" style="color:#ab2020;">Delete</a>
+        </div>
+        <hr />
+    }
+}
+else
+{
+    <p>Not commented in any art yet.</p>
+}

@@ -1,0 +1,32 @@
+﻿﻿@model PassionProject1N01659860.Models.Comments
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Comment</h2>
+
+<form action="/Comments/Update/@Model.CommentID" method="POST">
+    <div style="display:none;">
+        <input type="text" name="CommentID" value="@Model.CommentID" />
+    </div>
+    <div class="form-group">
+        <label for="CommentText">CommentText</label>
+        <textarea class="form-control" id="CommentText" name="CommentText" value="@Model.CommentText" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="DateCommented">Date Commented</label>
+        <input type="date" class="form-control" id="DateCommented" name="DateCommented" value="@Model.DateCommented" required />
+    </div>
+    <div class="form-group">
+        <label for="ArtID">ArtID</label>
+        <input type="number" class="form-control" id="ArtID" name="ArtID" value="@Model.ArtID" readonly />
+    </div>
+    <div class="form-group">
+        <label for="UserID">UserID</label>
+        <input type="number" class="form-control" id="UserID" name="UserID" value="@Model.UserID" readonly />
+    </div>
+    <div>
+        <input type="submit" value="Update Comment" />
+    </div>
+</form>

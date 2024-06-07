@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtController.cs" />
     <Compile Include="Controllers\ArtDataController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CommentsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -215,6 +216,10 @@
     <Compile Include="Migrations\202406070011485_comments.cs" />
     <Compile Include="Migrations\202406070011485_comments.Designer.cs">
       <DependentUpon>202406070011485_comments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406070503259_artcomment.cs" />
+    <Compile Include="Migrations\202406070503259_artcomment.Designer.cs">
+      <DependentUpon>202406070503259_artcomment.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -311,6 +316,12 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Error.cshtml" />
     <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\Comments\New.cshtml" />
+    <Content Include="Views\Comments\DeleteConfirm.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Error.cshtml" />
+    <Content Include="Views\Comments\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -351,6 +362,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202406070011485_comments.resx">
       <DependentUpon>202406070011485_comments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406070503259_artcomment.resx">
+      <DependentUpon>202406070503259_artcomment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
