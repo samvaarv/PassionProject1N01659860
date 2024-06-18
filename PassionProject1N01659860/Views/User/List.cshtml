@@ -4,11 +4,21 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-<a href="/User/New">New User</a>
+<h2 class="mb-4">List of Users</h2>
+<a href="/USer/New" class="btn btn-primary mb-4"><i class="fa-solid fa-plus me-2 p-2"></i>New User</a>
 
-@foreach (var user in Model)
-{
-    <h2><a href="/User/Details/@user.UserID">@user.UserName</a></h2>
-    <div>@user.Email</div>
-}
+<div class="row">
+    @foreach (var user in Model)
+    { 
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@user.UserName</h4>
+                    <p class="card-text">@user.Email</p>
+                    <p class="card-text card-text-one"><small class="text-muted">@user.DateJoined</small></p>
+                    <a href="/User/Details/@user.UserID" class="btn btn-outline-secondary"><span>View details</span><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

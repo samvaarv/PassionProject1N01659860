@@ -49,23 +49,30 @@ namespace PassionProject1N01659860.Controllers
 
         [HttpGet]
         [ResponseType(typeof(CommentsDto))]
-        public IHttpActionResult ListCommentsForArt(int id)
+        [Route("api/commentsdata/ListCommentsForUser/{userId}")]
+        public IHttpActionResult ListCommentsForUser(int userId)
         {
-            //SQL Equivalent:
-            //Select * from comments where comments.artid = {id}
-            List<Comments> Comments = db.Comments.Where(c => c.ArtID == id).ToList();
-            List<CommentsDto> CommentsDto = new List<CommentsDto>();
+            // OBJECTIVE: Retrieve comments made by the user and include the titles of the associated art pieces.
 
-            Comments.ForEach(c => CommentsDto.Add(new CommentsDto()
-            {
-                CommentID = c.CommentID,
-                CommentText = c.CommentText,
-                DateCommented = c.DateCommented,
-                UserID = c.User.UserID,
-                ArtID = c.Art.ArtID
-            }));
+            // Fetch comments and include associated art information.
+            var comments = from c in db.Comments
+                           join a in db.Arts on c.ArtID equals a.ArtID
+                           where c.UserID == userId
+                           select new CommentsDto
+                           {
+                               CommentID = c.CommentID,
+                               CommentText = c.CommentText,
+                               DateCommented = c.DateCommented,
+                               ArtID = c.Art.ArtID,
+                               Title = c.Art.Title,
+                               Artist = c.Art.Artist,
+                               UserID = c.User.UserID,
+                               UserName = c.User.UserName,
+                               Email = c.User.Email
+                           };
 
-            return Ok(CommentsDto);
+            // Return the list of comments with art titles as a JSON response.
+            return Ok(comments.ToList());
         }
 
         /// <summary>
@@ -83,32 +90,23 @@ namespace PassionProject1N01659860.Controllers
         /// </example>
         [HttpGet]
         [ResponseType(typeof(CommentsDto))]
-        public IHttpActionResult ListCommentsForUser(int id)
+        public IEnumerable<CommentsDto> ListCommentsForArt(int id)
         {
-            // Retrieves a list of comments from the database where the UserID matches the provided id.
-            // Equivalent SQL: SELECT * FROM comments WHERE comments.UserID = {id}
-            List<Comments> Comments = db.Comments.Where(c => c.UserID == id).ToList();
+            var comments = db.Comments
+                             .Where(c => c.ArtID == id)
+                             .Include(c => c.User)
+                             .Select(c => new CommentsDto
+                             {
+                                 CommentID = c.CommentID,
+                                 CommentText = c.CommentText,
+                                 DateCommented = c.DateCommented,
+                                 ArtID = c.ArtID,
+                                 UserID = c.User.UserID,
+                                 UserName = c.User.UserName,
+                                 Email = c.User.Email
+                             });
 
-            // Initializes a new list to hold the CommentsDto objects.
-            List<CommentsDto> CommentsDto = new List<CommentsDto>();
-
-            // Iterates through each comment in the list.
-            Comments.ForEach(c => CommentsDto.Add(new CommentsDto()
-            {
-                // Assigns the CommentID from the comment entity to the DTO.
-                CommentID = c.CommentID,
-                // Assigns the CommentText from the comment entity to the DTO.
-                CommentText = c.CommentText,
-                // Assigns the DateCommented from the comment entity to the DTO.
-                DateCommented = c.DateCommented,
-                // Assigns the UserID from the related User entity to the DTO.
-                UserID = c.User.UserID,
-                // Assigns the ArtID from the related Art entity to the DTO.
-                ArtID = c.Art.ArtID
-            }));
-
-            // Returns an HTTP 200 OK response with the list of CommentsDto objects.
-            return Ok(CommentsDto);
+            return comments.ToList();
         }
 
         /// <summary>
@@ -126,8 +124,8 @@ namespace PassionProject1N01659860.Controllers
         /// </example>
         [ResponseType(typeof(CommentsDto))]
         [HttpGet]
-        ///[Route("api/CommentsData/findComments/")]
-        public IHttpActionResult FindComments(int id)
+        ///[Route("api/CommentsData/findComment/")]
+        public IHttpActionResult FindComment(int id)
         {
             Comments Comments = db.Comments.Find(id);
             CommentsDto CommentsDto = new CommentsDto()
@@ -162,7 +160,7 @@ namespace PassionProject1N01659860.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
-        public IHttpActionResult UpdateComments(int id, Comments comments)
+        public IHttpActionResult UpdateComment(int id, Comments comments)
         {
             // Checks if the model state is valid.
             if (!ModelState.IsValid)
@@ -219,7 +217,7 @@ namespace PassionProject1N01659860.Controllers
         /// </example>
         [ResponseType(typeof(Comments))]
         [HttpPost]
-        public IHttpActionResult AddComments(Comments comments)
+        public IHttpActionResult AddComment(Comments comments)
         {
             // Checks if the model state is valid.
             if (!ModelState.IsValid)
@@ -250,7 +248,7 @@ namespace PassionProject1N01659860.Controllers
         /// </example>
         [ResponseType(typeof(Comments))]
         [HttpPost]
-        public IHttpActionResult DeleteComments(int id)
+        public IHttpActionResult DeleteComment(int id)
         {
             // Finds the comment by its ID.
             Comments comments = db.Comments.Find(id);

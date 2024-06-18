@@ -3,35 +3,60 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Art/List">Go back to list</a>
-<br />
-<a href="/Art/Edit/@Model.Art.ArtID">Update</a>
-<br />
-<a style="color:#ab2020;" href="/Art/DeleteConfirm/@Model.Art.ArtID">Delete</a>
-<h2>@Model.Art.Title</h2>
-<img src="@Model.Art.ImageURL" alt="@Model.Art.Title" />
-<div><strong>Artist:</strong> @Model.Art.Artist</div>
-<div><strong>Description:</strong> @Model.Art.Description</div>
-<div><strong>Medium:</strong> @Model.Art.Medium</div>
-<div><strong>Location:</strong> @Model.Art.Location</div>
-<div><strong>Year Installed:</strong> @Model.Art.YearInstalled.ToString("yyyy")</div>
+<a href="/Art/List" class="btn btn-lg btn-info mb-3"><i class="fa-solid fa-chevron-left p-2 me-2"></i>Go back to list</a>
 
-<h3>Comments</h3>
-@if (Model.Comments != null && Model.Comments.Any())
-{
-    foreach (var comment in Model.Comments)
-    {
-        <div style="border:1px solid #808080; padding: 1rem; border-radius:1rem; margin-top:1rem;">
-            <p>@comment.CommentText</p>  
-            <p><strong>Commented by:</strong> <a href="/User/Details/@comment.UserID">@comment.UserName</a></p>
-            <small>@comment.Email</small>
-            <p><strong>Date Commented:</strong> @comment.DateCommented.ToString("yyyy-MM-dd")</p>
-            <a href="/Comments/DeleteConfirm/@comment.CommentID" style="color:#ab2020;">Delete</a>
+<article>
+    <div class="p-4 rounded-2" style="background-color: #f5f5f5;">
+        <div class="row">
+            <div class="art-info col-12 col-md-6 col-lg-7">
+                <h2>@Model.Art.Title</h2>
+                <p class="art-artist mb-2"><small><em>@Model.Art.Artist</em></small></p>
+                <p><strong>Description:</strong><br /> @Model.Art.Description</p>
+                <p><strong>Medium:</strong> @Model.Art.Medium</p>
+                <p><strong>Location:</strong> @Model.Art.Location</p>
+                <p><strong>Year Installed:</strong> @Model.Art.YearInstalled.ToString("yyyy")</p>
+                <div class="d-flex align-items-center">
+                    <a href="/Art/Edit/@Model.Art.ArtID" class="btn btn-warning me-2 mb-2">Update</a>
+                    <a href="/Art/DeleteConfirm/@Model.Art.ArtID" class="btn btn-danger mb-2">Delete</a>
+                </div>
+            </div>
+            <div class="art-image col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
+                <img class="img-fluid rounded-2" src="@Model.Art.ImageURL" alt="@Model.Art.Title" />
+            </div>
         </div>
-        <hr />
-    }
-}
-else
-{
-    <p>No comments yet.</p>
-}
+    </div>
+
+    <div class="comment-block my-4">
+        <h3 class="mb-4">Comments</h3>
+        <div class="row">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var comment in Model.Comments)
+                {
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-md-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title">@comment.UserName</h5>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary"><small>@comment.Email</small></h6>
+                                    </div>
+                                    <p class="text-body-tertiary">
+                                        <small><i class="fa-regular fa-calendar-days me-2"></i> @comment.DateCommented</small>
+                                    </p>
+                                </div>
+                                <p class="card-text">@comment.CommentText</p>
+                                <a href="/User/Details/@comment.UserID" class="btn btn-secondary me-2 mb-3 mb-sm-0">Show Details</a>
+                                <a href="/Comments/DeleteConfirm/@comment.CommentID" class="btn btn-outline-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No comments yet.</p>
+            }
+        </div>
+    </div>
+</article>

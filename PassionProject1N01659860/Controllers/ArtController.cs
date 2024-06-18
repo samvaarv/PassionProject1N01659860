@@ -32,6 +32,7 @@ namespace PassionProject1N01659860.Controllers
             // Deserialize the JSON response into an IEnumerable of Art objects.
             IEnumerable<Art> arts = response.Content.ReadAsAsync<IEnumerable<Art>>().Result;
 
+
             // Pass the list of art pieces to the view for rendering.
             return View(arts);
         }

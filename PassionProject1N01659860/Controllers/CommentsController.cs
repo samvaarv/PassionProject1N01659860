@@ -140,7 +140,7 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult DeleteConfirm(int id)
         {
             // Define the API endpoint for finding a comment by ID.
-            string url = "commentsdata/findcomment/" + id;
+            string url = "commentsdata/findcomments/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             // Deserialize the JSON response into a Comments object.

@@ -1,14 +1,34 @@
 ﻿﻿@model IEnumerable<PassionProject1N01659860.Models.Art>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Toront Public Art Gallery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List</h2>
-<a href="/Art/New">New Art</a>
+<h2 class="mb-4">List of Arts</h2>
+<div class="e-flex flex-row justify-content-between mb-4">
+    <a href="/Art/New" class="btn btn-primary"><i class="fa-solid fa-plus me-2 p-2"></i>New Art</a>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary btn-view grid btn-active"><i class="fa-solid fa-border-all"></i></button>
+        <button type="button" class="btn btn-outline-secondary btn-view list"><i class="fa-solid fa-list"></i></button>
+    </div>
+</div>
 
-@foreach (var art in Model)
-{
-    <h2><a href="/Art/Details/@art.ArtID">@art.Title</a></h2>
-    <div>@art.Artist</div>
-}
+<div class="row grid" id="card-wrapper">
+    @foreach (var art in Model)
+    {
+        <div class="card-item mb-4">
+            <div class="card">
+                <div class="card-img-block">
+                    <img src="@art.ImageURL" class="card-img-top" alt="@art.Title">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">@art.Title</h4>
+                    <p class="card-text truncate-overflow">@art.Description</p>
+                    <p class="card-text card-text-one"><small class="text-muted">@art.Artist</small></p>
+                    <a href="/Art/Details/@art.ArtID" class="btn btn-outline-secondary"><span>View details</span><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

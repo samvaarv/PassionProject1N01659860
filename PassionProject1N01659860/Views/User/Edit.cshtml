@@ -4,29 +4,29 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Update User</h2>
+<h2 class="mb-3">Update User</h2>
 
 <form action="/User/Update/@Model.UserID" method="POST">
     <div style="display:none;">
         <input type="text" name="UserID" value="@Model.UserID" />
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="UserName">Username</label>
         <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" required />
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="Email">Email</label>
         <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="Password">Password</label>
         <input type="password" class="form-control" id="Password" name="Password" required />
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="DateJoined">Date Joined</label>
         <input type="date" class="form-control" id="DateJoined" name="DateJoined" value="@Model.DateJoined" required />
     </div>
     <div>
-        <input type="submit" value="Update User" />
+        <input class="btn btn-warning" type="submit" value="Update User" />
     </div>
 </form>
