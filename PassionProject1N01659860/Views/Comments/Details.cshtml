@@ -1,4 +1,4 @@
-﻿﻿@model PassionProject1N01659860.Models.Comments
+﻿﻿@model PassionProject1N01659860.Models.CommentsDto
 @{
     ViewBag.Title = "Details";
 }
@@ -10,5 +10,5 @@
 <a style="color:#ab2020;" href="/Comments/DeleteConfirm/@Model.CommentID">Delete</a>
 <div><strong>Comment:</strong> @Model.CommentText</div>
 <div><strong>Description:</strong> @Model.DateCommented</div>
-<div><strong>Art ID:</strong> @Model.ArtID</div>
-<div><strong>User ID:</strong> @Model.UserID</div>
+<div><strong>Art ID:</strong> @Model.Title</div>
+<div><strong>User ID:</strong> @Model.UserName</div>

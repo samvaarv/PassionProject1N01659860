@@ -3,26 +3,26 @@
     ViewBag.Title = "New";
 }
 
-<h2>Add new Comment</h2>
+<h2 class="mb-4">Add new Comment</h2>
 
 <form action="/Comments/Create" method="post">
-    <div class="form-group">
-        <label for="CommentText">CommentText</label>
+    <div class="col-md-5 form-group mb-3">
+        <label class="mb-2" for="CommentText">CommentText</label>
         <textarea class="form-control" id="CommentText" name="CommentText" required></textarea>
     </div>
-    <div class="form-group">
-        <label for="DateJoined">Date Joined</label>
+    <div class="col-md-5 form-group mb-3">
+        <label class="mb-2" for="DateJoined">Date Joined</label>
         <input type="date" class="form-control" id="DateJoined" name="DateJoined" required />
     </div>
-    <div class="form-group">
-        <label for="ArtID">ArtID</label>
+    <div class="col-md-5 form-group mb-3">
+        <label class="mb-2" for="ArtID">ArtID</label>
         <input type="number" class="form-control" id="ArtID" name="ArtID" required />
     </div>
-    <div class="form-group">
-        <label for="UserID">UserID</label>
+    <div class="col-md-5 form-group mb-3">
+        <label class="mb-2" for="UserID">UserID</label>
         <input type="number" class="form-control" id="UserID" name="UserID" required />
     </div>
-    <div>
-        <input class="btn btn-primary" type="submit" value="Add Comments" />
+    <div class="form-group">
+        <input class="btn btn-secondary" type="submit" value="Add Comments" />
     </div>
 </form>

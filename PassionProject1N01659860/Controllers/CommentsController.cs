@@ -41,12 +41,12 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult Details(int id)
         {
             // OBJECTIVE: Communication with the comments data API to retrieve a specific comment.
-            // curl https://localhost:44350/api/commentsdata/findcomments/{id}
-            string url = "commentsdata/findcomments/" + id;
+            // curl https://localhost:44350/api/commentsdata/findcomment/{id}
+            string url = "commentsdata/findcomment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             // Deserialize the JSON response into a Comments object.
-            Comments SelectedComment = response.Content.ReadAsAsync<Comments>().Result;
+            CommentsDto SelectedComment = response.Content.ReadAsAsync<CommentsDto>().Result;
 
             // Pass the comment object to the view for rendering.
             return View(SelectedComment);
@@ -65,10 +65,11 @@ namespace PassionProject1N01659860.Controllers
 
         // POST: Comments/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Comments comments)
         {
             // Define the API endpoint for adding a new comment.
-            string url = "commentsdata/addcomments";
+            string url = "commentsdata/addcomment";
 
             // Serialize the comments object to JSON format.
             string jsonpayload = jss.Serialize(comments);
@@ -96,11 +97,11 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult Edit(int id)
         {
             // Define the API endpoint for finding a comment by ID.
-            string url = "commentsdata/findcomments/" + id;
+            string url = "commentsdata/findcomment/" + id;
             HttpResponseMessage responseMessage = client.GetAsync(url).Result;
 
             // Deserialize the JSON response into a Comments object.
-            Comments SelectedComment = responseMessage.Content.ReadAsAsync<Comments>().Result;
+            CommentsDto SelectedComment = responseMessage.Content.ReadAsAsync<CommentsDto>().Result;
 
             // Pass the comment object to the view for editing.
             return View(SelectedComment);
@@ -111,7 +112,7 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult Update(int id, Comments comments)
         {
             // Define the API endpoint for updating a comment.
-            string url = "commentsdata/updatecomments/" + id;
+            string url = "commentsdata/updatecomment/" + id;
 
             // Serialize the comments object to JSON format.
             string jsonpayload = jss.Serialize(comments);
@@ -127,7 +128,7 @@ namespace PassionProject1N01659860.Controllers
             if (response.IsSuccessStatusCode)
             {
                 // If the request is successful, redirect to the comments list.
-                return RedirectToAction("List");
+                return Redirect("/User/List");
             }
             else
             {
@@ -140,20 +141,20 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult DeleteConfirm(int id)
         {
             // Define the API endpoint for finding a comment by ID.
-            string url = "commentsdata/findcomments/" + id;
+            string url = "commentsdata/findcomment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             // Deserialize the JSON response into a Comments object.
-            Comments comment = response.Content.ReadAsAsync<Comments>().Result;
+            CommentsDto SelectedComment = response.Content.ReadAsAsync<CommentsDto>().Result;
 
-            if (comment == null)
+            if (SelectedComment == null)
             {
                 // If the comment is not found, redirect to the error view.
                 return RedirectToAction("Error");
             }
 
             // Pass the comment object to the view for deletion confirmation.
-            return View(comment);
+            return View(SelectedComment);
         }
 
         // POST: Comments/Delete/5
@@ -161,7 +162,7 @@ namespace PassionProject1N01659860.Controllers
         public ActionResult Delete(int id)
         {
             // Define the API endpoint for deleting a comment by ID.
-            string url = "commentsdata/deletecomments/" + id;
+            string url = "commentsdata/deletecomment/" + id;
 
             // Create an empty HttpContent object since the delete request doesn't require a body.
             HttpContent content = new StringContent("");

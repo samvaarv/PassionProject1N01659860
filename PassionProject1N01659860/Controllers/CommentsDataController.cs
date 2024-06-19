@@ -158,7 +158,7 @@ namespace PassionProject1N01659860.Controllers
         /// POST: api/CommentsData/UpdateComments/5
         /// FORM DATA: Comments JSON Object
         /// </example>
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof(CommentsDto))]
         [HttpPost]
         public IHttpActionResult UpdateComment(int id, Comments comments)
         {
@@ -212,7 +212,7 @@ namespace PassionProject1N01659860.Controllers
         /// HEADER: 400 (Bad Request) if the provided data is invalid.
         /// </returns>
         /// <example>
-        /// POST: api/CommentsData/AddComments
+        /// POST: api/CommentsData/AddComment
         /// FORM DATA: Comments JSON Object
         /// </example>
         [ResponseType(typeof(Comments))]
@@ -243,7 +243,7 @@ namespace PassionProject1N01659860.Controllers
         /// HEADER: 404 (NOT FOUND) if the comment is not found.
         /// </returns>
         /// <example>
-        /// POST: api/CommentsData/DeleteComments/5
+        /// POST: api/CommentsData/DeleteComment/5
         /// FORM DATA: (empty)
         /// </example>
         [ResponseType(typeof(Comments))]

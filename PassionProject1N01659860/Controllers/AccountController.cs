@@ -15,6 +15,8 @@ namespace PassionProject1N01659860.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -155,13 +157,24 @@ namespace PassionProject1N01659860.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // Generate an integer UserId (example: using the length of the username)
+                    int userId = model.Email.Length;
+
+                    // Register user in dbo.Users table
+                    var newUser = new User
+                    {
+                        UserID = userId,
+                        UserName = model.Email,
+                        Email = model.Email,
+                        Password = model.Password,
+                        DateJoined = DateTime.UtcNow
+                    };
+
+                    // Add to DbContext and save changes
+                    db.Users.Add(newUser);
+                    await db.SaveChangesAsync();
+
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     return RedirectToAction("Index", "Home");
                 }

@@ -18,7 +18,7 @@ namespace PassionProject1N01659860.Models
 
         [Required]
 
-        public DateTime DateCommented { get; set; }
+        public DateTime DateCommented { get; set; } = DateTime.UtcNow;
 
         // An art can have many Comments
         [Required]

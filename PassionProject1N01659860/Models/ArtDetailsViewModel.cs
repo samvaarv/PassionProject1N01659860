@@ -9,6 +9,8 @@ namespace PassionProject1N01659860.Models
     {
         public Art Art { get; set; }
         public User User { get; set; }
+        public string AspNetUserId { get; set; }
+        public int UserID { get; set; }
         public IEnumerable<CommentsDto> Comments { get; set; }
     }
 }

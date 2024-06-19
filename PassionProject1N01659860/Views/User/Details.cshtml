@@ -3,12 +3,12 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/User/List" class="btn btn-lg btn-info mb-3"><i class="fa-solid fa-chevron-left p-2 me-2"></i>Go back to list</a>
-<div class="card bg-secondary-subtle">
+<a href="/User/List" class="btn btn-lg btn-info mb-4"><i class="fa-solid fa-chevron-left p-2 me-2"></i>Go back to list</a>
+<div class="card col-md-5 bg-dark">
     <div class="card-body">
-        <h4 class="card-title">@Model.User.UserName</h4>
-        <p class="card-text">@Model.User.Email</p>
-        <p class="card-text card-text-one"><small class="text-muted">@Model.User.DateJoined</small></p>
+        <h4 class="card-title text-light">@Model.User.UserName</h4>
+        <p class="card-text text-light">@Model.User.Email</p>
+        <p class="card-text text-white"><i class="fa-regular fa-calendar-days me-2 mb-4"></i><small class="text-white-50">@Model.User.DateJoined</small></p>
         <div class="d-flex align-items-center">
             <a href="/User/Edit/@Model.User.UserID" class="btn btn-warning me-2 mb-2">Update</a>
             <a href="/User/DeleteConfirm/@Model.User.UserID" class="btn btn-danger mb-2">Delete</a>
@@ -16,28 +16,29 @@
     </div>
 </div>
 
-<div class="comment-block my-4">
-    <h3 class="mb-4">Comments</h3>
-    <div class="row">
+<div class="comment-block mt-50 mb-4">
+    <h3 class="mb-4">Commented on <strong class="count"></strong> Arts</h3>
+    <div class="comment-list row">
         @if (Model.Comments != null && Model.Comments.Any())
         {
             foreach (var comment in Model.Comments)
             {
-                <div class="col-md-6 mb-4">
+                <div class="comment col-md-6 mb-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-md-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title">@comment.Title</h5>
-                                    <h6 class="card-subtitle art-artist mb-2"><small><em>@comment.Artist</em></small></h6>
+                                    <h5 class="card-title"><strong>@comment.Title</strong></h5>
+                                    <h6 class="card-subtitle art-artist mb-2 mb-md-4"><small><em>@comment.Artist</em></small></h6>
                                 </div>
                                 <p class="text-body-tertiary">
                                     <small><i class="fa-regular fa-calendar-days me-2"></i> @comment.DateCommented</small>
                                 </p>
                             </div>
-                            <p class="card-text">@comment.CommentText</p>
-                            <a href="/Art/Details/@comment.ArtID" class="btn btn-secondary me-2 mb-3 mb-sm-0">Show Details</a>
-                            <a href="/Comments/DeleteConfirm/@comment.CommentID" class="btn btn-outline-danger">Delete</a>
+                            <p class="card-text mb-4">@comment.CommentText</p>
+                            <a href="/Art/Details/@comment.ArtID" class="btn btn-secondary mt-2 me-2 mb-3 mb-sm-0">Show Art Details</a>
+                            <a href="/Comments/Edit/@comment.CommentID" class="btn btn-warning mt-2 me-2 mb-3 mb-sm-0">Update Comment</a>
+                            <a href="/Comments/DeleteConfirm/@comment.CommentID" class="btn btn-outline-danger mt-2">Delete Comment</a>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
-﻿using PassionProject1N01659860.Models;
+﻿using Microsoft.AspNet.Identity;
+using PassionProject1N01659860.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +13,7 @@ namespace PassionProject1N01659860.Controllers
 {
     public class ArtController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
@@ -40,29 +42,62 @@ namespace PassionProject1N01659860.Controllers
         // GET: Art/Details/5
         public ActionResult Details(int id)
         {
-            // OBJECTIVE: Communication with the art data API to retrieve a specific art piece.
-            // curl https://localhost:44350/api/artdata/findart/{id}
-
             ArtDetailsViewModel ViewModel = new ArtDetailsViewModel();
 
+            // Fetch the art piece
             string url = "artdata/findart/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            // Deserialize the JSON response into an Art object.
-            Art SelectedArt = response.Content.ReadAsAsync<Art>().Result;
+            if (response.IsSuccessStatusCode)
+            {
+                Art SelectedArt = response.Content.ReadAsAsync<Art>().Result;
+                ViewModel.Art = SelectedArt;
+            }
+            else
+            {
+                return HttpNotFound("Art piece not found.");
+            }
 
-            ViewModel.Art = SelectedArt;
-
-            // Retrieve related comments for the art piece.
+            // Fetch the comments
             url = "commentsdata/ListCommentsForArt/" + id;
             response = client.GetAsync(url).Result;
-            IEnumerable<CommentsDto> RelatedComments = response.Content.ReadAsAsync<IEnumerable<CommentsDto>>().Result;
 
-            ViewModel.Comments = RelatedComments;
+            if (response.IsSuccessStatusCode)
+            {
+                IEnumerable<CommentsDto> RelatedComments = response.Content.ReadAsAsync<IEnumerable<CommentsDto>>().Result;
+                ViewModel.Comments = RelatedComments;
+            }
+            else
+            {
+                ViewModel.Comments = new List<CommentsDto>();
+            }
 
-            // Pass the art piece and related comments to the view for rendering.
+            // Retrieve UserID based on logged-in user's identity (assuming you're using UserName or Email for authentication)
+            string loggedInUserName = User.Identity.Name; // Assuming UserName is used for authentication
+            int userIdFromDatabase = GetUserIdFromUserName(loggedInUserName);
+            ViewModel.UserID = userIdFromDatabase;
+
             return View(ViewModel);
         }
+
+        // Example function to retrieve UserID based on UserName
+        private int GetUserIdFromUserName(string userName)
+        {
+            // Implement your logic to fetch UserID from dbo.User based on UserName
+            // Example:
+            var user = db.Users.FirstOrDefault(u => u.UserName == userName);
+            if (user != null)
+            {
+                return user.UserID;
+            }
+            else
+            {
+                // Handle case where user is not found
+                return 0; // or any default value
+            }
+        }
+
+
 
         public ActionResult Error()
         {

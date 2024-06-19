@@ -19,6 +19,14 @@ textarea {
     max-width: 280px;
 }*/
 
+.mb-50 {
+    margin-bottom: 50px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
 .grid .card-item {
     flex: 0 0 auto;
     width: 33.33333333%;

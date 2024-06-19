@@ -4,7 +4,7 @@
 }
 
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+    <h2 id="title" class="mb-4">@ViewBag.Title.</h2>
 
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
@@ -12,7 +12,7 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>Password:</dt>
-            <dd>
+            <dd class="mb-3">
                 [
                 @if (Model.HasPassword)
                 {
@@ -25,7 +25,7 @@
                 ]
             </dd>
             <dt>External Logins:</dt>
-            <dd>
+            <dd class="mb-3">
                 @Model.Logins.Count [
                 @Html.ActionLink("Manage", "ManageLogins") ]
             </dd>

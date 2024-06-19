@@ -37,7 +37,7 @@ namespace PassionProject1N01659860.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             // Create a new view model instance to hold the user and their related comments.
             ArtDetailsViewModel ViewModel = new ArtDetailsViewModel();
@@ -107,7 +107,7 @@ namespace PassionProject1N01659860.Controllers
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             // Define the API endpoint for finding a user by ID.
             string url = "userdata/finduser/" + id;
@@ -122,7 +122,7 @@ namespace PassionProject1N01659860.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, User user)
+        public ActionResult Update(string id, User user)
         {
             // Define the API endpoint for updating a user.
             string url = "userdata/updateuser/" + id;
@@ -151,7 +151,7 @@ namespace PassionProject1N01659860.Controllers
         }
 
         // GET: User/Delete/5
-        public ActionResult DeleteConfirm(int id)
+        public ActionResult DeleteConfirm(string id)
         {
             // Define the API endpoint for finding a user by ID.
             string url = "userdata/finduser/" + id;
@@ -166,7 +166,7 @@ namespace PassionProject1N01659860.Controllers
 
         // POST: User/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             // Define the API endpoint for deleting a user by ID.
             string url = "userdata/deleteuser/" + id;
