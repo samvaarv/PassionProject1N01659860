@@ -90,51 +90,38 @@ This CMS will help to manage and showcase the information of art in the Toronto 
 
 ## Snapshots of the CMS:
 
-<div style="width:50%; padding: 20px;">
 ![Landing Page](assets/landing.png)
-*Landing Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Landing Page_
+
 ![Landing Page](assets/login.png)
-*Login Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Login Page_
+
 ![Landing Page](assets/artslist.png)
-*Art Lists*
-</div>
-<div style="width:50%; padding: 20px;">
+_Art Lists_
+
 ![Landing Page](assets/artdetails.png)
-*Art Details Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Art Details Page_
+
 ![Landing Page](assets/artaddpage.png)
-*Add Art Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Add Art Page_
+
 ![Landing Page](assets/updateartpage.png)
-*Update Art Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Update Art Page_
+
 ![Landing Page](assets/searchedart.png)
-*Search Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Search Page_
+
 ![Landing Page](assets/userlist.png)
-*User List Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_User List Page_
+
 ![Landing Page](assets/userdetails.png)
-*User Details Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_User Details Page_
+
 ![Landing Page](assets/commentlist.png)
-*Comments List Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Comments List Page_
+
 ![Landing Page](assets/commenttext.png)
-*Comment Add Page*
-</div>
-<div style="width:50%; padding: 20px;">
+_Comment Add Page_
+
 ![Landing Page](assets/commentdelete.png)
-*Comment Delete Page*
-</div>
+_Comment Delete Page_
