@@ -27,9 +27,7 @@ This CMS will help to manage and showcase the information of art in the Toronto 
 
 - List view of all comments with options to moderate or delete.
 
-## Database Entity Relationship Diagram (ERD):
-
-#### Entities and Attributes:
+## Entities and Attributes:
 
 - **Users:**
 
@@ -77,7 +75,7 @@ This CMS will help to manage and showcase the information of art in the Toronto 
 
 ## ERD Diagram:
 
-![ERD Diagram](erd-artistryCMS.png)
+![ERD Diagram](assets/erd-artistryCMS.png)
 
 ### Explanation of Relationships:
 
@@ -89,3 +87,54 @@ This CMS will help to manage and showcase the information of art in the Toronto 
 - **Art to Comments (1-to-Many):**
   - Each artwork (Art table) can have multiple comments (Comments table).
   - The relationship is represented by the ArtID in the Comments table as a foreign key linking back to the Art table.
+
+## Snapshots of the CMS:
+
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/landing.png)
+*Landing Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/login.png)
+*Login Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/artslist.png)
+*Art Lists*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/artdetails.png)
+*Art Details Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/artaddpage.png)
+*Add Art Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/updateartpage.png)
+*Update Art Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/searchedart.png)
+*Search Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/userlist.png)
+*User List Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/userdetails.png)
+*User Details Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/commentlist.png)
+*Comments List Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/commenttext.png)
+*Comment Add Page*
+</div>
+<div style="width:50%; padding: 20px;">
+![Landing Page](assets/commentdelete.png)
+*Comment Delete Page*
+</div>
