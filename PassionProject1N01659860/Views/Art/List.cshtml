@@ -6,13 +6,28 @@
 }
 
 <h2 class="mb-4">List of Arts</h2>
-<div class="e-flex flex-row justify-content-between mb-4">
-    <a href="/Art/New" class="btn btn-primary"><i class="fa-solid fa-plus me-2 p-2"></i>New Art</a>
-    <div class="btn-group">
+
+<div class="d-flex flex-row justify-content-between mb-4">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/Art/New" class="btn btn-primary"><i class="fa-solid fa-plus me-2 p-2"></i>New Art</a>
+    }
+    <div class="btn-group ms-auto">
         <button type="button" class="btn btn-outline-secondary btn-view grid btn-active"><i class="fa-solid fa-border-all"></i></button>
         <button type="button" class="btn btn-outline-secondary btn-view list"><i class="fa-solid fa-list"></i></button>
     </div>
 </div>
+
+<!-- Search Form -->
+<form method="get" action="@Url.Action("List", "Art")" class="mb-4">
+    <div class="input-group search-block">
+        <i class="fa-solid fa-magnifying-glass d-none d-md-block fa-icon"></i>
+        <input type="text" name="searchQuery" class="form-control form-control-lg" placeholder="Search by title or artist..." value="@Request.QueryString["searchQuery"]" />
+        <div class="input-group-append">
+            <button class="btn btn-lg btn-secondary" type="submit"><i class="fa fa-search d-md-none"></i> Search</button>
+        </div>
+    </div>
+</form>
 
 <div class="row grid" id="card-wrapper">
     @foreach (var art in Model)
@@ -20,7 +35,14 @@
         <div class="card-item mb-4">
             <div class="card">
                 <div class="card-img-block">
-                    <img src="@art.ImageURL" class="card-img-top" alt="@art.Title">
+                    @{
+                        string imageurl = "/Content/Images/Arts/default.jpg";
+                        if (art.ImageURL)
+                        {
+                            imageurl = "/Content/Images/Arts/" + art.ArtID + "." + art.PicExtension;
+                        }
+                    }
+                    <img class="img-fluid w-100 rounded-2" src="@imageurl" alt="@art.Title" />
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">@art.Title</h4>

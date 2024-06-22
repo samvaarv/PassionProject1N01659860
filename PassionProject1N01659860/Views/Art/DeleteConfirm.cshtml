@@ -22,7 +22,14 @@
             </div>
         </div>
         <div class="art-image col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
-            <img class="img-fluid rounded-2" src="@Model.ImageURL" alt="@Model.Title" />
+            @{
+                string imageurl = "/Content/Images/Arts/default.jpg";
+                if (Model.ImageURL)
+                {
+                    imageurl = "/Content/Images/Arts/" + Model.ArtID + "." + Model.PicExtension;
+                }
+            }
+            <img class="img-fluid rounded-2" src="@imageurl" alt="@Model.Title" />
         </div>
     </div>
 </div>

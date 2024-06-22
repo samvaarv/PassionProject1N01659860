@@ -40,6 +40,9 @@ namespace PassionProject1N01659860.Models
         public int ArtID { get; set; }
         public string Artist { get; set; }
         public string Title { get; set; }
+        public bool ImageURL { get; set; }
+        //images deposited into /Content/Images/Animals/{id}.{extension}
+        public string PicExtension { get; set; }
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }

@@ -21,7 +21,9 @@ namespace PassionProject1N01659860.Models
 
         public string Location { get; set; }
 
-        public string ImageURL { get; set; }
+        public bool ImageURL { get; set; }
+        //images deposited into /Content/Images/Animals/{id}.{extension}
+        public string PicExtension { get; set; }
 
         public DateTime YearInstalled { get; set; }
 

@@ -228,6 +228,18 @@
     <Compile Include="Migrations\202406190843348_AspNetUserIdRemoved.Designer.cs">
       <DependentUpon>202406190843348_AspNetUserIdRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202406210217165_ArtImageUploadPicExtention.cs" />
+    <Compile Include="Migrations\202406210217165_ArtImageUploadPicExtention.Designer.cs">
+      <DependentUpon>202406210217165_ArtImageUploadPicExtention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406210451291_RemoveImageUpload.cs" />
+    <Compile Include="Migrations\202406210451291_RemoveImageUpload.Designer.cs">
+      <DependentUpon>202406210451291_RemoveImageUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202406210500387_ArtImageUpload.cs" />
+    <Compile Include="Migrations\202406210500387_ArtImageUpload.Designer.cs">
+      <DependentUpon>202406210500387_ArtImageUpload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Art.cs" />
@@ -257,6 +269,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Images\Arts\1.jpg" />
+    <Content Include="Content\Images\Arts\default.jpg" />
+    <Content Include="Content\Images\banner.jpg" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo1.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -376,6 +393,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202406190843348_AspNetUserIdRemoved.resx">
       <DependentUpon>202406190843348_AspNetUserIdRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406210217165_ArtImageUploadPicExtention.resx">
+      <DependentUpon>202406210217165_ArtImageUploadPicExtention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406210451291_RemoveImageUpload.resx">
+      <DependentUpon>202406210451291_RemoveImageUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202406210500387_ArtImageUpload.resx">
+      <DependentUpon>202406210500387_ArtImageUpload.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

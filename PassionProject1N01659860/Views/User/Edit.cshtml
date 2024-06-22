@@ -24,7 +24,7 @@
     </div>
     <div class="form-group mb-3">
         <label for="DateJoined">Date Joined</label>
-        <input type="date" class="form-control" id="DateJoined" name="DateJoined" value="@Model.DateJoined" required />
+        <input type="date" class="form-control" id="DateJoined" name="DateJoined" value="@Model.DateJoined.ToString("yyyy-MM-dd")" required />
     </div>
     <div>
         <input class="btn btn-warning" type="submit" value="Update User" />

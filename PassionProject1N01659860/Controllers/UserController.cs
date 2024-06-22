@@ -1,4 +1,5 @@
-﻿using PassionProject1N01659860.Models;
+﻿using PassionProject1N01659860.Migrations;
+using PassionProject1N01659860.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -141,7 +142,7 @@ namespace PassionProject1N01659860.Controllers
             if (response.IsSuccessStatusCode)
             {
                 // If the request is successful, redirect to the user list.
-                return RedirectToAction("List");
+                return RedirectToAction("Details", "User", new { id = user.UserID });
             }
             else
             {

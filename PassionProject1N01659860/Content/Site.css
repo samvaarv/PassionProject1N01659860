@@ -19,6 +19,16 @@ textarea {
     max-width: 280px;
 }*/
 
+a {
+    color: #212529;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: rgba(33, 37, 41, 0.9);
+        text-decoration: underline;
+    }
+
 .mb-50 {
     margin-bottom: 50px;
 }
@@ -94,26 +104,28 @@ textarea {
 }
 
 .btn-outline-secondary {
-    padding: 6px 16px;
-    border-radius: 20px;
+    padding: 8px 36px;
+    border-radius: 50px;
     border: 1px solid #212529;
     color: #212529;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 160px;
+    max-width: 200px;
     font-size: 14px;
+    font-weight: 500;
 }
 
-    .btn-outline-secondary:hover {
+    .btn-outline-secondary:hover, .btn-outline-secondary:active {
         border: 1px solid #212529;
         color: #fff;
         background: #212529;
+        text-decoration: none;
     }
 
 .btn-secondary {
     padding: 8px 36px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #212529;
     background-color: #212529;
     color: #fff;
@@ -121,10 +133,11 @@ textarea {
     font-weight: 500;
 }
 
-    .btn-secondary:hover {
+    .btn-secondary:hover, .btn-secondary:active {
         border: 1px solid #212529;
         background: #fff;
         color: #212529;
+        text-decoration: none;
     }
 
 .btn-active {
@@ -138,7 +151,7 @@ textarea {
     align-items: center;
     width: max-content;
     padding: 6px 20px 6px 8px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #212529;
     background: #212529;
     font-size: 14px;
@@ -148,27 +161,28 @@ textarea {
         width: 30px;
         height: 30px;
         background: #0e0e0e;
-        border-radius: 20px;
+        border-radius: 50px;
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover, .btn-primary:active {
         border: 1px solid #212529;
         color: #212529;
         background: #fff;
+        text-decoration: none;
     }
 
-    .btn-primary:hover i {
-        border: 1px solid #212529;
-        color: #212529;
-        background: #fff;
-    }
+        .btn-primary:hover i, .btn-primary:active i {
+            border: 1px solid #212529;
+            color: #212529;
+            background: #fff;
+        }
 
 .btn-info {
     display: flex;
     align-items: center;
     width: max-content;
     padding: 6px 20px 6px 8px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #9AC8CD;
     background: #9AC8CD;
     font-size: 14px;
@@ -178,16 +192,17 @@ textarea {
         width: 30px;
         height: 30px;
         background: #E1F7F5;
-        border-radius: 20px;
+        border-radius: 50px;
     }
 
-    .btn-info:hover {
+    .btn-info:hover, .btn-info:active {
         border: 1px solid #9AC8CD;
         color: #212529;
         background: #E1F7F5;
+        text-decoration: none;
     }
 
-        .btn-info:hover i {
+        .btn-info:hover i, .btn-info:active i {
             border: 1px solid #9AC8CD;
             color: #212529;
             background: #9AC8CD;
@@ -195,7 +210,7 @@ textarea {
 
 .btn-warning {
     padding: 8px 36px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #F6B17A;
     background-color: #F6B17A;
     color: #212529;
@@ -203,14 +218,15 @@ textarea {
     font-weight: 500;
 }
 
-    .btn-warning:hover {
+    .btn-warning:hover, .btn-warning:active {
         border: 1px solid #F6B17A;
         background: #fff;
+        text-decoration: none;
     }
 
 .btn-success {
     padding: 8px 36px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #346751;
     background-color: #346751;
     color: #fff;
@@ -218,15 +234,16 @@ textarea {
     font-weight: 500;
 }
 
-    .btn-success:hover {
+    .btn-success:hover, .btn-success:active {
         border: 1px solid #346751;
         background: #fff;
         color: #346751;
+        text-decoration: none;
     }
 
 .btn-danger {
     padding: 8px 36px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #CF0A0A;
     background-color: #CF0A0A;
     color: #fff;
@@ -234,16 +251,17 @@ textarea {
     font-weight: 500;
 }
 
-    .btn-danger:hover {
+    .btn-danger:hover, .btn-danger:active {
         border: 1px solid #CF0A0A;
         background: #fff;
         color: #CF0A0A;
+        text-decoration: none;
     }
 
 .btn-outline-danger {
     font-size: 14px;
     padding: 8px 36px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #CF0A0A;
     background-color: #FFF;
     color: #CF0A0A;
@@ -251,8 +269,65 @@ textarea {
     font-weight: 500;
 }
 
-    .btn-outline-danger:hover {
+    .btn-outline-danger:hover, .btn-outline-danger:active {
         border: 1px solid #CF0A0A;
         background: #CF0A0A;
         color: #FFF;
+        text-decoration: none;
     }
+
+.btn-lg {
+    font-size: var(--bs-btn-font-size)
+}
+
+.search-block {
+    position: relative;
+}
+
+    .search-block .fa-icon {
+        position: absolute;
+        top: 50%;
+        left: 16px;
+        color: #6e7174;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .search-block .form-control {
+        padding-left: 50px;
+        border-radius: 50px !important;
+    }
+
+    .search-block .btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+.hero-section {
+    background-image: url('Images/banner.jpg');
+    background-size: cover;
+    width: 100%;
+    height: calc(100vh - 160px);
+    padding-top: 10%;
+}
+
+.hero-content img {
+    width: 185px;
+}
+
+@media only screen and (max-width: 992px) {
+    .grid .card-item {
+        width: 50%;
+    }
+
+    .list .card-img-block {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .grid .card-item {
+        width: 100%;
+    }
+}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PassionProject1N01659860.Migrations;
 using PassionProject1N01659860.Models;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace PassionProject1N01659860.Controllers
         }
 
         // GET: Art/List
-        public ActionResult List()
+      /*  public ActionResult List()
         {
             // OBJECTIVE: Communication with the art data API to retrieve a list of art pieces.
             // curl https://localhost:44350/api/artdata/listarts
@@ -37,6 +38,20 @@ namespace PassionProject1N01659860.Controllers
 
             // Pass the list of art pieces to the view for rendering.
             return View(arts);
+        }*/
+
+        // GET: Art/List
+        public ActionResult List(string searchQuery)
+        {
+            var arts = db.Arts.AsQueryable();
+
+            // Filter the results based on the search query
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                arts = arts.Where(a => a.Title.Contains(searchQuery) || a.Artist.Contains(searchQuery));
+            }
+
+            return View(arts.ToList());
         }
 
         // GET: Art/Details/5
@@ -72,15 +87,15 @@ namespace PassionProject1N01659860.Controllers
                 ViewModel.Comments = new List<CommentsDto>();
             }
 
-            // Retrieve UserID based on logged-in user's identity (assuming you're using UserName or Email for authentication)
-            string loggedInUserName = User.Identity.Name; // Assuming UserName is used for authentication
+            // Retrieve UserID based on logged-in user's identity
+            string loggedInUserName = User.Identity.Name;
             int userIdFromDatabase = GetUserIdFromUserName(loggedInUserName);
             ViewModel.UserID = userIdFromDatabase;
 
             return View(ViewModel);
         }
 
-        // Example function to retrieve UserID based on UserName
+        // To retrieve UserID based on UserName
         private int GetUserIdFromUserName(string userName)
         {
             // Implement your logic to fetch UserID from dbo.User based on UserName
@@ -96,8 +111,6 @@ namespace PassionProject1N01659860.Controllers
                 return 0; // or any default value
             }
         }
-
-
 
         public ActionResult Error()
         {
@@ -140,6 +153,7 @@ namespace PassionProject1N01659860.Controllers
         }
 
         // GET: Art/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             // Define the API endpoint for finding an art piece by ID.
@@ -155,7 +169,7 @@ namespace PassionProject1N01659860.Controllers
 
         // POST: Art/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, Art art)
+        public ActionResult Update(int id, Art art, HttpPostedFileBase ImageURL)
         {
             // Define the API endpoint for updating an art piece.
             string url = "artdata/updateart/" + id;
@@ -169,12 +183,24 @@ namespace PassionProject1N01659860.Controllers
 
             // Send the POST request to the API endpoint.
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            Debug.WriteLine(content);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode && ImageURL != null)
+            {//Updating the animal picture as a separate request
+                Debug.WriteLine("Calling Update Image method.");
+                //Send over image data for player
+                url = "ArtData/UploadArtPic/" + id;
+
+                MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(ImageURL.InputStream);
+                requestcontent.Add(imagecontent, "ImageURL", ImageURL.FileName);
+                response = client.PostAsync(url, requestcontent).Result;
+                // If the request is successful, redirect to the art edited.
+                return RedirectToAction("Details", "Art", new { id = art.ArtID });
+            }
+            else if (response.IsSuccessStatusCode)
             {
-                // If the request is successful, redirect to the art list.
-                return RedirectToAction("List");
+                //No image upload, but update still successful
+                return RedirectToAction("Details", "Art", new { id = art.ArtID });
             }
             else
             {

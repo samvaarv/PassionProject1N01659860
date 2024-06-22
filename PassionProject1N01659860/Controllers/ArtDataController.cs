@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PassionProject1N01659860.Models;
@@ -96,6 +99,9 @@ namespace PassionProject1N01659860.Controllers
 
             // Marks the artwork entity as modified.
             db.Entry(art).State = EntityState.Modified;
+            // Picture update is handled by another method
+            db.Entry(art).Property(a => a.ImageURL).IsModified = false;
+            db.Entry(art).Property(a => a.PicExtension).IsModified = false;
 
             try
             {
@@ -120,6 +126,92 @@ namespace PassionProject1N01659860.Controllers
             // Returns a 204 No Content response indicating successful update.
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        /// <summary>
+        /// Receives art picture data, uploads it to the webserver and updates the art's HasPic option
+        /// </summary>
+        /// <param name="id">the art id</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// curl -F artpic=@file.jpg "https://localhost:xx/api/artdata/uploadartpic/2"
+        /// POST: api/artData/UpdateartPic/3
+        /// HEADER: enctype=multipart/form-data
+        /// FORM-DATA: image
+        /// </example>
+        /// https://stackoverflow.com/questions/28369529/how-to-set-up-a-web-api-controller-for-multipart-form-data
+
+        [HttpPost]
+        public IHttpActionResult UploadArtPic(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var artPic = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (artPic.ContentLength > 0)
+                    {
+                        //establish valid file types (can be changed to other file extensions if desired!)
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(artPic.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/arts/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Arts/"), fn);
+
+                                //save the file
+                                artPic.SaveAs(path);
+
+                                //if these are all successful then we can set these fields
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the art haspic and picextension fields in the database
+                                Art Selectedart = db.Arts.Find(id);
+                                Selectedart.ImageURL = haspic;
+                                Selectedart.PicExtension = extension;
+                                db.Entry(Selectedart).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Art Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                                return BadRequest();
+                            }
+                        }
+                    }
+
+                }
+
+                return Ok();
+            }
+            else
+            {
+                //not multipart form data
+                return BadRequest();
+
+            }
+
+        }
+
 
         /// <summary>
         /// Adds a new artwork to the database.
@@ -174,6 +266,17 @@ namespace PassionProject1N01659860.Controllers
             {
                 // Returns a 404 Not Found if the artwork does not exist.
                 return NotFound();
+            }
+
+            if (art.ImageURL && art.PicExtension != "")
+            {
+                //also delete image from path
+                string path = HttpContext.Current.Server.MapPath("~/Content/Images/Arts/" + id + "." + art.PicExtension);
+                if (System.IO.File.Exists(path))
+                {
+                    Debug.WriteLine("File exists... preparing to delete!");
+                    System.IO.File.Delete(path);
+                }
             }
 
             // Removes the artwork from the database.

@@ -3,12 +3,30 @@
     ViewBag.Title = "Details";
 }
 
-<a href="/Comments/List">Go back to list</a>
-<br />
-<a href="/Comments/Edit/@Model.CommentID">Update</a>
-<br />
-<a style="color:#ab2020;" href="/Comments/DeleteConfirm/@Model.CommentID">Delete</a>
-<div><strong>Comment:</strong> @Model.CommentText</div>
-<div><strong>Description:</strong> @Model.DateCommented</div>
-<div><strong>Art ID:</strong> @Model.Title</div>
-<div><strong>User ID:</strong> @Model.UserName</div>
+<a href="/Comments/List" class="btn btn-lg btn-info mb-4"><i class="fa-solid fa-chevron-left p-2 me-2"></i>Go back to list</a>
+
+<div class="p-4 rounded-2" style="background-color: #f5f5f5;">
+    <div class="row">
+        <div class="art-image col-12 col-md-6 col-lg-5 mt-4 mt-md-0">
+            @{
+                string imageurl = "/Content/Images/Arts/default.jpg";
+                if (Model.ImageURL)
+                {
+                    imageurl = "/Content/Images/Arts/" + Model.ArtID + "." + Model.PicExtension;
+                }
+            }
+            <img class="img-fluid rounded-2" src="@imageurl" alt="@Model.Title" />
+        </div>
+        <div class="art-info col-12 col-md-6 col-lg-7">
+            <h2>@Model.Title</h2>
+            <p class="art-artist mb-2"><small><em>@Model.Artist</em></small></p>
+            <p><strong>Commented by:</strong> @Model.UserName</p>
+            <p><strong>Commented on:</strong> @Model.DateCommented</p>
+            <p>@Model.CommentText</p>
+            <div class="d-flex align-items-center">
+                <a href="/Comments/Edit/@Model.CommentID" class="btn btn-warning me-2 mb-2">Update</a>
+                <a href="/Comments/DeleteConfirm/@Model.CommentID" class="btn btn-danger mb-2">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

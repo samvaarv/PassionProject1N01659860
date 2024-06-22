@@ -9,11 +9,14 @@
         <h4 class="card-title text-light">@Model.User.UserName</h4>
         <p class="card-text text-light">@Model.User.Email</p>
         <p class="card-text text-white"><i class="fa-regular fa-calendar-days me-2 mb-4"></i><small class="text-white-50">@Model.User.DateJoined</small></p>
-        <div class="d-flex align-items-center">
-            <a href="/User/Edit/@Model.User.UserID" class="btn btn-warning me-2 mb-2">Update</a>
-            <a href="/User/DeleteConfirm/@Model.User.UserID" class="btn btn-danger mb-2">Delete</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="d-flex align-items-center">
+                <a href="/User/Edit/@Model.User.UserID" class="btn btn-warning me-2 mb-2">Update</a>
+                <a href="/User/DeleteConfirm/@Model.User.UserID" class="btn btn-danger mb-2">Delete</a>
+            </div>
+        }
         </div>
-    </div>
 </div>
 
 <div class="comment-block mt-50 mb-4">
@@ -37,9 +40,12 @@
                             </div>
                             <p class="card-text mb-4">@comment.CommentText</p>
                             <a href="/Art/Details/@comment.ArtID" class="btn btn-secondary mt-2 me-2 mb-3 mb-sm-0">Show Art Details</a>
-                            <a href="/Comments/Edit/@comment.CommentID" class="btn btn-warning mt-2 me-2 mb-3 mb-sm-0">Update Comment</a>
-                            <a href="/Comments/DeleteConfirm/@comment.CommentID" class="btn btn-outline-danger mt-2">Delete Comment</a>
-                        </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="/Comments/Edit/@comment.CommentID" class="btn btn-warning mt-2 me-2 mb-3 mb-sm-0">Update Comment</a>
+                                <a href="/Comments/DeleteConfirm/@comment.CommentID" class="btn btn-outline-danger mt-2">Delete Comment</a>
+                            }
+                            </div>
                     </div>
                 </div>
             }

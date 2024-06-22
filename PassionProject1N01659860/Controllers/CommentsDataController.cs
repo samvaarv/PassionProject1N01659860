@@ -40,8 +40,14 @@ namespace PassionProject1N01659860.Controllers
                 CommentID = a.CommentID,
                 CommentText = a.CommentText,
                 DateCommented = a.DateCommented,
+                ArtID = a.Art.ArtID,
+                Title = a.Art.Title,
+                Artist = a.Art.Artist,
+                ImageURL = a.Art.ImageURL,
+                PicExtension = a.Art.PicExtension,
                 UserID = a.User.UserID,
-                ArtID = a.Art.ArtID
+                UserName = a.User.UserName,
+                Email = a.User.Email,
             }));
 
             return Ok(CommentDtos);
@@ -133,8 +139,14 @@ namespace PassionProject1N01659860.Controllers
                 CommentID = Comments.CommentID,
                 CommentText = Comments.CommentText,
                 DateCommented = Comments.DateCommented,
+                ArtID = Comments.Art.ArtID,
+                Title = Comments.Art.Title,
+                Artist = Comments.Art.Artist,
+                ImageURL = Comments.Art.ImageURL,
+                PicExtension = Comments.Art.PicExtension,
                 UserID = Comments.User.UserID,
-                ArtID = Comments.Art.ArtID
+                UserName = Comments.User.UserName,
+                Email = Comments.User.Email,
             };
             if (Comments == null)
             {

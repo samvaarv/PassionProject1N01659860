@@ -31,7 +31,7 @@ namespace PassionProject1N01659860.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             // Deserialize the JSON response into an IEnumerable of Comments objects.
-            IEnumerable<Comments> comments = response.Content.ReadAsAsync<IEnumerable<Comments>>().Result;
+            IEnumerable<CommentsDto> comments = response.Content.ReadAsAsync<IEnumerable<CommentsDto>>().Result;
 
             // Pass the list of comments to the view for rendering.
             return View(comments);
@@ -83,8 +83,8 @@ namespace PassionProject1N01659860.Controllers
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                // If the request is successful, redirect to the comments list.
-                return RedirectToAction("List");
+                // If the request is successful, redirect to the commented art.
+                return RedirectToAction("Details", "Art", new { id = comments.ArtID }); // Redirect to Art Details view
             }
             else
             {
@@ -127,8 +127,8 @@ namespace PassionProject1N01659860.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                // If the request is successful, redirect to the comments list.
-                return Redirect("/User/List");
+                // If the request is successful, redirect to the commented art.
+                return RedirectToAction("Details", "Art", new { id = comments.ArtID }); // Redirect to Art Details view
             }
             else
             {
